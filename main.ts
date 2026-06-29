@@ -3,6 +3,22 @@ input.onLogoEvent(TouchButtonEvent.Released, function () {
         Verrou = 0
     }
 })
+input.onButtonPressed(Button.A, function () {
+    if (Math.abs(Mode) == 1) {
+        images.arrowImage(ArrowNames.West).showImage(0)
+        servos.P1.run(10)
+        basic.pause(2000)
+        servos.P1.stop()
+    }
+})
+input.onButtonPressed(Button.B, function () {
+    if (Math.abs(Mode) == 1) {
+        images.arrowImage(ArrowNames.East).showImage(0)
+        servos.P2.run(Correctif_Servo1 + -10)
+        basic.pause(2000)
+    }
+    servos.P2.stop()
+})
 input.onLogoEvent(TouchButtonEvent.Pressed, function () {
     if (Verrou == 0) {
         Mode = 1
@@ -11,7 +27,8 @@ input.onLogoEvent(TouchButtonEvent.Pressed, function () {
 })
 let Verrou = 0
 let Mode = 0
-let Correctif_Servo1 = -10
+let Correctif_Servo1 = 0
+Correctif_Servo1 = -10
 Mode = 0
 basic.showLeds(`
     # # . # #
@@ -20,6 +37,7 @@ basic.showLeds(`
     # . . . #
     . # # # .
     `)
+basic.pause(500)
 basic.showLeds(`
     # # . . .
     # # . # #
@@ -27,6 +45,23 @@ basic.showLeds(`
     # . . . #
     . # # # .
     `)
+basic.pause(500)
+basic.showLeds(`
+    # # . # #
+    # # . # #
+    . . . . .
+    # . . . #
+    . # # # .
+    `)
+basic.pause(500)
+basic.showLeds(`
+    # # . . .
+    # # . # #
+    . . . . .
+    # . . . #
+    . # # # .
+    `)
+basic.pause(500)
 basic.forever(function () {
     if (Mode == 0) {
         basic.showLeds(`
@@ -57,7 +92,7 @@ basic.forever(function () {
                 `)
             servos.P1.run(10)
             servos.P2.run(Correctif_Servo1 + -10)
-            basic.pause(2000)
+            basic.pause(1000)
             servos.P1.stop()
             servos.P2.stop()
         }
